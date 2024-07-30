@@ -229,6 +229,7 @@ export class VAxios {
           if (transformResponseHook && isFunction(transformResponseHook)) {
             try {
               const ret = transformResponseHook(res, opt);
+              console.log('transformResponseHook',ret)
               resolve(ret);
             } catch (err) {
               reject(err || new Error('request error!'));

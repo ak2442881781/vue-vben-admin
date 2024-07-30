@@ -92,7 +92,7 @@ export const useUserStore = defineStore({
         const { goHome = true, mode, ...loginParams } = params;
         const data = await loginApi(loginParams, mode);
         const { token } = data;
-
+        console.log('login',data)
         // save token
         this.setToken(token);
         return this.afterLoginAction(goHome);
@@ -101,6 +101,7 @@ export const useUserStore = defineStore({
       }
     },
     async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+      console.log('afterLoginAction',this.getToken)
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();
@@ -126,6 +127,7 @@ export const useUserStore = defineStore({
       return userInfo;
     },
     async getUserInfoAction(): Promise<UserInfo | null> {
+      console.log('getUserInfoAction',this.getToken)
       if (!this.getToken) return null;
       const userInfo = await getUserInfo();
       const { roles = [] } = userInfo;

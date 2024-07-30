@@ -100,6 +100,7 @@
   import { useUserStore } from '@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '@/hooks/web/useDesign';
+import account from 'mock/demo/account';
   //import { onKeyStroke } from '@vueuse/core';
 
   const ACol = Col;
@@ -119,7 +120,8 @@
   const rememberMe = ref(false);
 
   const formData = reactive({
-    account: 'vben',
+    // account: 'vben',
+    account: 'admin',
     password: '123456',
   });
 
@@ -139,14 +141,17 @@
         username: data.account,
         mode: 'none', //不要默认的错误提示
       });
+      console.log("userInfo",userInfo)
       if (userInfo) {
         notification.success({
           message: t('sys.login.loginSuccessTitle'),
-          description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.realName}`,
+          description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.nickName}`,
           duration: 3,
         });
       }
     } catch (error) {
+      console.log("错误提示")
+      console.log(error)
       createErrorModal({
         title: t('sys.api.errorTip'),
         content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
